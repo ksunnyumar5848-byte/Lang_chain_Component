@@ -47,7 +47,15 @@ def main():
             model_name = os.getenv("ANTHROPIC_MODEL", "claude-haiku-4-5-20251001")
             if not api_key or api_key == "your_anthropic_api_key_here":
                 sys.exit("ANTHROPIC_API_KEY is missing. Add it to .env, or set PROVIDER back to openai.")
-            model = ChatAnthropic(model=model_name, api_key=api_key, temperature=0)   
+            model = ChatAnthropic(model=model_name, api_key=api_key, temperature=0)
+
+    elif provider == "ollama":
+            model_name = os.getenv("OLLAMA_MODEL", "llama3.2")
+            print("Ollama has no API key. The app must be running, and the model must be downloaded:")
+            print(f"    ollama pull {model_name}")
+            model = ChatOllama(model=model_name, temperature=0)
+            
+               
 
 
 
