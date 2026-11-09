@@ -32,7 +32,14 @@ def main():
             sys.exit("you have not the model name in your .env file please add the model name ....")    
 
 
-        model=ChatGoogleGenerativeAI(model=model_name,api_key=api_key,temperature=0)    
+        model=ChatGoogleGenerativeAI(model=model_name,api_key=api_key,temperature=0)
+        
+    elif provider == "openai":
+            api_key = os.getenv("OPENAI_API_KEY", "").strip()
+            model_name = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
+            if not api_key or api_key == "your_openai_api_key_here":
+                sys.exit("OPENAI_API_KEY is missing. Copy .env.example to .env and add your key.")
+            model = ChatOpenAI(model=model_name, api_key=api_key, temperature=0)    
 
 
 
