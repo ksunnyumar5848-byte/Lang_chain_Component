@@ -54,8 +54,33 @@ def main():
             print("Ollama has no API key. The app must be running, and the model must be downloaded:")
             print(f"    ollama pull {model_name}")
             model = ChatOllama(model=model_name, temperature=0)
-            
-               
+    else:
+         sys.exit("PROVIDER MUST BE ","open ai ","gemini ","or","ollama")
+
+
+    print(f"Provider : {provider}")
+    print(f"question : {QUESTION}")
+
+    response=model.invoke([HumanMessage(content=QUESTION)])
+
+    try:
+         print(f"Response : {response}")
+    except Exception as error:
+         sys.exit(
+              f"Could not get a response from {provider}.\n"
+              f"Check your API key, model name, and provider availability.\n"
+              f"Details: {error}"
+         )
+
+    print(f"answer the llm : {response.content}")
+
+
+if __name__=="__main__":
+     main()
+
+
+
+
 
 
 
